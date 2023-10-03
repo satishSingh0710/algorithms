@@ -43,6 +43,7 @@ long long maxSeg[8 * 100005];
 long long lazy[8 * 100005];
 long long seg[8 * 100005];  
 
+
 void buildSum(vector<int> &a, ll ind , ll low, ll high){
     if(low == high){
       seg[ind] = a[low]; 
@@ -51,7 +52,8 @@ void buildSum(vector<int> &a, ll ind , ll low, ll high){
     int mid = (low + high)/2 ;
     buildSum(a,2 * ind + 1, low , mid); 
     buildSum(a,2 * ind + 2, mid+1, high);
-    seg[ind] = (ll)seg[2 * ind + 1]+(ll)seg[2 * ind + 2];}
+    seg[ind] = (ll)seg[2 * ind + 1]+(ll)seg[2 * ind + 2];
+}
 void buildMax(vector<int> &a,ll ind, ll low, ll high){
     if(low == high){
       maxSeg[ind] = a[low]; 
@@ -93,7 +95,8 @@ void rangeSumUpdate(ll ind , ll low, ll high, ll l, ll r, ll val){
     ll mid = (low) + (high - low)/2; 
     rangeSumUpdate(2 * ind + 1, low, mid, l, r, val); 
     rangeSumUpdate(2 * ind + 2, mid + 1, high, l, r, val); 
-    seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2]; }
+    seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
+}
 ll querySumLazy(ll ind, ll low, ll high, ll l, ll r){
     if(lazy[ind] != 0){
         seg[ind] += (high  - low + 1) * lazy[ind]; 
@@ -110,7 +113,8 @@ ll querySumLazy(ll ind, ll low, ll high, ll l, ll r){
     }
     ll mid = low + (high - low)/2; 
     return querySumLazy(2 * ind + 1, low, mid, l, r) + 
-    querySumLazy(2 * ind + 2, mid + 1, high, l, r); }
+    querySumLazy(2 * ind + 2, mid + 1, high, l, r);
+}
 void maxMinUpdate(ll ind, ll low, ll high, ll l, ll r, ll val){
    if(lazy[ind] != 0){
       minSeg[ind] += lazy[ind];
